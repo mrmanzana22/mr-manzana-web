@@ -27,7 +27,7 @@
     <meta name="author" content="Mr. Manzana">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle fill='%23c0c0c0' cx='50' cy='50' r='50'/><text y='70' font-size='60' text-anchor='middle' x='50' fill='%231a1a1a'>M</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle fill='%23000' cx='50' cy='50' r='50'/><path d='M35 25 Q35 15 45 15 Q55 15 55 25 Q55 35 45 35 Q35 35 35 25' fill='white'/><path d='M45 12 L48 8 M50 12 L53 8' stroke='white' stroke-width='2'/><ellipse cx='42' cy='28' rx='2' ry='1' fill='black'/><ellipse cx='48' cy='28' rx='2' ry='1' fill='black'/><path d='M38 32 Q45 38 52 32' stroke='black' stroke-width='2' fill='none'/><text y='85' font-size='45' text-anchor='middle' x='50' fill='white' font-weight='bold'>M</text></svg>">
     
     <style>
         * {
@@ -64,7 +64,7 @@
         .logo {
             width: 120px;
             height: 120px;
-            background: linear-gradient(135deg, #3a3a3a, #1a1a1a);
+            background: #000000;
             border-radius: 50%;
             margin: 0 auto 30px;
             display: flex;
@@ -77,23 +77,153 @@
 
         .logo::before {
             content: '';
-            width: 60px;
-            height: 60px;
-            background: #c0c0c0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 25px;
+            background: white;
+            border-radius: 15px 15px 50% 50%;
+            z-index: 2;
         }
 
         .logo::after {
-            content: 'M';
+            content: '';
             position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 2px;
+            z-index: 3;
+        }
+
+        .logo .apple-stem {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 2px;
+            z-index: 4;
+        }
+
+        .logo .apple-eyes {
+            position: absolute;
+            top: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+        }
+
+        .logo .apple-eyes::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 4px;
+            height: 2px;
+            background: black;
+            border-radius: 50%;
+        }
+
+        .logo .apple-eyes::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 0;
+            width: 4px;
+            height: 2px;
+            background: black;
+            border-radius: 50%;
+        }
+
+        .logo .mustache {
+            position: absolute;
+            top: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 4px;
+            background: black;
+            border-radius: 50%;
+            z-index: 5;
+        }
+
+        .logo .mustache::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 8px;
+            height: 4px;
+            background: black;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-20deg);
+        }
+
+        .logo .mustache::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 0;
+            width: 8px;
+            height: 4px;
+            background: black;
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(20deg);
+        }
+
+        .logo .bowtie {
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 8px;
+            background: white;
+            z-index: 5;
+        }
+
+        .logo .bowtie::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50% 0 50% 0;
+            transform: rotate(45deg);
+        }
+
+        .logo .bowtie::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: 0;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 0 50% 0 50%;
+            transform: rotate(45deg);
+        }
+
+        .logo .letter-m {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 48px;
             font-weight: 700;
-            color: #1a1a1a;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            z-index: 6;
         }
 
         .logo-text {
@@ -401,7 +531,13 @@
 <body>
     <div class="container">
         <header class="header fade-in">
-            <div class="logo"></div>
+            <div class="logo">
+                <div class="apple-stem"></div>
+                <div class="apple-eyes"></div>
+                <div class="mustache"></div>
+                <div class="bowtie"></div>
+                <div class="letter-m">M</div>
+            </div>
             <h1 class="logo-text">Mr. Manzana</h1>
             <p class="tagline">Somos calidad y tu mejor elección</p>
             
