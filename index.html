@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr. Manzana - Promociones Amor y Amistad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e5e5e7;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px 0;
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            margin-top: 20px;
+            border: 1px solid #3a3a3a;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #3a3a3a, #1a1a1a);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            border: 2px solid #4a4a4a;
+        }
+
+        .logo::before {
+            content: '';
+            width: 60px;
+            height: 60px;
+            background: #c0c0c0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .logo::after {
+            content: 'M';
+            position: absolute;
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .logo-text {
+            font-size: 36px;
+            font-weight: 300;
+            color: #c0c0c0;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: #8e8e93;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        .promo-title {
+            font-size: 52px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #c0c0c0, #8e8e93);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .promo-subtitle {
+            font-size: 28px;
+            color: #c0c0c0;
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .promo-description {
+            font-size: 20px;
+            color: #a1a1a6;
+            margin-bottom: 15px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .image-card {
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #3a3a3a;
+            cursor: pointer;
+        }
+
+        .image-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #c0c0c0, #8e8e93, #6a6a6f);
+        }
+
+        .image-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            border-color: #4a4a4a;
+        }
+
+        .promo-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .image-card:hover .promo-image {
+            transform: scale(1.05);
+            box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+        }
+
+        .image-title {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #c0c0c0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #c0c0c0;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #ffffff;
+        }
+
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(45,45,45,0.8);
+            border: none;
+            color: #c0c0c0;
+            font-size: 24px;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-nav:hover {
+            background: rgba(60,60,60,0.9);
+            color: #ffffff;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .modal-prev {
+            left: 20px;
+        }
+
+        .modal-next {
+            right: 20px;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+            border-radius: 20px;
+            padding: 50px;
+            margin-top: 60px;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            border: 1px solid #3a3a3a;
+        }
+
+        .contact-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #c0c0c0;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .contact-info {
+            font-size: 18px;
+            color: #a1a1a6;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #3a3a3a, #1a1a1a);
+            color: #c0c0c0;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.4s ease;
+            margin-top: 20px;
+            border: 2px solid #4a4a4a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, #4a4a4a, #2a2a2a);
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+            border-color: #5a5a5a;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .promo-title {
+                font-size: 42px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .image-card {
+                padding: 15px;
+            }
+            
+            .modal-nav {
+                font-size: 18px;
+                padding: 12px 16px;
+            }
+            
+            .modal-prev {
+                left: 10px;
+            }
+            
+            .modal-next {
+                right: 10px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header fade-in">
+            <div class="logo"></div>
+            <h1 class="logo-text">Mr. Manzana</h1>
+            <p class="tagline">Somos calidad y tu mejor elección</p>
+            
+            <h2 class="promo-title">SUPER PROMO</h2>
+            <p class="promo-subtitle">Amor y amistad</p>
+            <p class="promo-description">Celebra este mes con descuentos especiales</p>
+            <p style="color: #c0c0c0; font-weight: 600; font-size: 18px;">¡No dejes pasar estas ofertas únicas!</p>
+        </header>
+
+        <div class="gallery">
+            <div class="image-card fade-in" onclick="openModal(0)">
+                <img src="https://drive.google.com/uc?export=view&id=18m70Es21-nXf_304YG3aT4mvdPK42-TH" 
+                     alt="Promoción General" class="promo-image">
+                <div class="image-title">Vista General</div>
+            </div>
+
+            <div class="image-card fade-in" onclick="openModal(1)">
+                <img src="https://drive.google.com/uc?export=view&id=1g1jBR-YzV9p7AndS9DQEcNF420nnX8TZ" 
+                     alt="iPhone 12 Series" class="promo-image">
+                <div class="image-title">iPhone 12 Series</div>
+            </div>
+
+            <div class="image-card fade-in" onclick="openModal(2)">
+                <img src="https://drive.google.com/uc?export=view&id=1Mq3loNQiZ8JFZdq-WpTOTEM5-O_83iHY" 
+                     alt="iPhone 13 Series" class="promo-image">
+                <div class="image-title">iPhone 13 Series</div>
+            </div>
+
+            <div class="image-card fade-in" onclick="openModal(3)">
+                <img src="https://drive.google.com/uc?export=view&id=12ck-G92LEI7isiuBt8EisrEH-nM9DCZD" 
+                     alt="iPhone 14 Series" class="promo-image">
+                <div class="image-title">iPhone 14 Series</div>
+            </div>
+
+            <div class="image-card fade-in" onclick="openModal(4)">
+                <img src="https://drive.google.com/uc?export=view&id=1wxM2Kx1b5okVJzqIp2A7SQIru8vFnbCO" 
+                     alt="iPhone 15 & 16 Series" class="promo-image">
+                <div class="image-title">iPhone 15 & 16 Series</div>
+            </div>
+        </div>
+
+        <div id="imageModal" class="modal" onclick="closeModal()">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <button class="modal-nav modal-prev" onclick="previousImage(event)">&#10094;</button>
+            <button class="modal-nav modal-next" onclick="nextImage(event)">&#10095;</button>
+            <div class="modal-content">
+                <img id="modalImage" class="modal-image" src="" alt="">
+            </div>
+        </div>
+
+        <div class="contact-section fade-in">
+            <h3 class="contact-title">¿Te interesa algún modelo?</h3>
+            <p class="contact-info">Contáctanos para más información sobre disponibilidad, métodos de pago y promociones especiales</p>
+            <p class="contact-info"><strong>Somos calidad y tu mejor elección</strong></p>
+            <a href="https://wa.me/573175530069?text=Hola!%20Me%20interesan%20las%20promociones%20de%20amor%20y%20amistad%20de%20Mr.%20Manzana" class="cta-button" target="_blank">
+                Contactar por WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let currentImageIndex = 0;
+        
+        const images = [
+            { src: "https://drive.google.com/uc?export=view&id=18m70Es21-nXf_304YG3aT4mvdPK42-TH", title: "Vista General" },
+            { src: "https://drive.google.com/uc?export=view&id=1g1jBR-YzV9p7AndS9DQEcNF420nnX8TZ", title: "iPhone 12 Series" },
+            { src: "https://drive.google.com/uc?export=view&id=1Mq3loNQiZ8JFZdq-WpTOTEM5-O_83iHY", title: "iPhone 13 Series" },
+            { src: "https://drive.google.com/uc?export=view&id=12ck-G92LEI7isiuBt8EisrEH-nM9DCZD", title: "iPhone 14 Series" },
+            { src: "https://drive.google.com/uc?export=view&id=1wxM2Kx1b5okVJzqIp2A7SQIru8vFnbCO", title: "iPhone 15 & 16 Series" }
+        ];
+
+        function openModal(imageIndex) {
+            try {
+                currentImageIndex = imageIndex;
+                const modal = document.getElementById('imageModal');
+                const modalImage = document.getElementById('modalImage');
+                
+                if (modal && modalImage && images[imageIndex]) {
+                    modal.style.display = 'block';
+                    modalImage.src = images[imageIndex].src;
+                    modalImage.alt = images[imageIndex].title;
+                    document.body.style.overflow = 'hidden';
+                }
+            } catch (error) {
+                console.error('Error abriendo modal:', error);
+            }
+        }
+
+        function closeModal() {
+            try {
+                const modal = document.getElementById('imageModal');
+                if (modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            } catch (error) {
+                console.error('Error cerrando modal:', error);
+            }
+        }
+
+        function nextImage(event) {
+            try {
+                event.stopPropagation();
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                const modalImage = document.getElementById('modalImage');
+                if (modalImage && images[currentImageIndex]) {
+                    modalImage.src = images[currentImageIndex].src;
+                    modalImage.alt = images[currentImageIndex].title;
+                }
+            } catch (error) {
+                console.error('Error navegando imagen:', error);
+            }
+        }
+
+        function previousImage(event) {
+            try {
+                event.stopPropagation();
+                currentImageIndex = currentImageIndex === 0 ? images.length - 1 : currentImageIndex - 1;
+                const modalImage = document.getElementById('modalImage');
+                if (modalImage && images[currentImageIndex]) {
+                    modalImage.src = images[currentImageIndex].src;
+                    modalImage.alt = images[currentImageIndex].title;
+                }
+            } catch (error) {
+                console.error('Error navegando imagen:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Mr. Manzana - Página cargada correctamente');
+            
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeModal();
+                } else if (event.key === 'ArrowRight') {
+                    nextImage(event);
+                } else if (event.key === 'ArrowLeft') {
+                    previousImage(event);
+                }
+            });
+
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(40px)';
+                el.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
