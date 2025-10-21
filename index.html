@@ -37,11 +37,89 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: #e5e5e7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #0a0a0a;
+            color: #f5f5f7;
             line-height: 1.6;
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fondo animado con partículas */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255, 59, 48, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 149, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 204, 0, 0.05) 0%, transparent 50%);
+            animation: particleMove 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes particleMove {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-20px) scale(1.1);
+                opacity: 0.5;
+            }
+        }
+
+        /* Navbar superior */
+        .top-navbar {
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #a1a1a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #ff3b30, #ff9500);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 59, 48, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .container {
@@ -53,27 +131,109 @@
         .header {
             text-align: center;
             margin-bottom: 60px;
-            padding: 50px 0;
-            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            margin-top: 20px;
-            border: 1px solid #3a3a3a;
+            padding: 80px 40px 60px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5),
+                        0 0 100px rgba(255, 149, 0, 0.1),
+                        inset 0 1px 0 rgba(255,255,255,0.05);
+            margin-top: 30px;
+            border: 1px solid rgba(255, 149, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 4px;
+            background: linear-gradient(90deg,
+                transparent,
+                #ff3b30,
+                #ff9500,
+                #ffcc00,
+                #ff9500,
+                #ff3b30,
+                transparent);
+            animation: slideShimmer 3s linear infinite;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 149, 0, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        @keyframes slideShimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
         }
 
         .logo {
-            width: 120px;
-            height: 120px;
-            background: #000000;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
             border-radius: 50%;
             margin: 0 auto 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-            border: 2px solid #4a4a4a;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6),
+                        0 0 40px rgba(255, 149, 0, 0.3),
+                        0 0 0 3px rgba(255, 149, 0, 0.2),
+                        0 0 0 6px rgba(255, 149, 0, 0.1),
+                        inset 0 0 30px rgba(255, 149, 0, 0.1);
+            border: 3px solid rgba(255, 149, 0, 0.3);
             overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: logoEntrance 1s ease-out, logoPulse 3s ease-in-out 1s infinite;
+        }
+
+        .logo:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8),
+                        0 0 60px rgba(255, 149, 0, 0.6),
+                        0 0 0 3px rgba(255, 149, 0, 0.4),
+                        0 0 0 6px rgba(255, 149, 0, 0.2);
+        }
+
+        @keyframes logoEntrance {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-180deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                box-shadow: 0 15px 50px rgba(0,0,0,0.6),
+                            0 0 40px rgba(255, 149, 0, 0.3),
+                            0 0 0 3px rgba(255, 149, 0, 0.2),
+                            0 0 0 6px rgba(255, 149, 0, 0.1);
+            }
+            50% {
+                box-shadow: 0 15px 50px rgba(0,0,0,0.6),
+                            0 0 60px rgba(255, 149, 0, 0.5),
+                            0 0 0 3px rgba(255, 149, 0, 0.4),
+                            0 0 0 6px rgba(255, 149, 0, 0.2);
+            }
         }
 
         .logo img {
@@ -84,44 +244,140 @@
         }
 
         .logo-text {
-            font-size: 36px;
-            font-weight: 300;
-            color: #c0c0c0;
+            font-size: 42px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ffffff, #ff9500, #ffffff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: -1px;
             margin-bottom: 15px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            text-shadow: 0 0 30px rgba(255, 149, 0, 0.3);
+            animation: textEntrance 0.8s ease-out 0.3s both, gradientShift 4s ease infinite;
+            position: relative;
+        }
+
+        @keyframes textEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .tagline {
             font-size: 18px;
-            color: #8e8e93;
-            font-weight: 300;
+            color: #d1d1d6;
+            font-weight: 400;
             margin-bottom: 40px;
+            text-shadow: 0 2px 10px rgba(255, 149, 0, 0.2);
+            animation: textEntrance 0.8s ease-out 0.5s both;
         }
 
         .promo-title {
-            font-size: 52px;
-            font-weight: 700;
-            background: linear-gradient(45deg, #c0c0c0, #8e8e93);
+            font-size: 72px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 0%, #ff9500 50%, #ff3b30 100%);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+            letter-spacing: -4px;
+            position: relative;
+            display: inline-block;
+            animation: textEntrance 0.8s ease-out 0.7s both,
+                       gradientShift 5s ease infinite,
+                       textGlow 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 149, 0, 0.5))
+                    drop-shadow(0 0 40px rgba(255, 59, 48, 0.3))
+                    drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+        }
+
+        @keyframes textGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(255, 149, 0, 0.5))
+                        drop-shadow(0 0 40px rgba(255, 59, 48, 0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 30px rgba(255, 149, 0, 0.8))
+                        drop-shadow(0 0 60px rgba(255, 59, 48, 0.5));
+            }
+        }
+
+        .promo-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff3b30, #ff9500);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
             margin-bottom: 20px;
-            letter-spacing: -2px;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 25px rgba(255, 59, 48, 0.4),
+                        0 0 40px rgba(255, 149, 0, 0.3);
+            text-transform: uppercase;
+            animation: textEntrance 0.8s ease-out 0.6s both, badgePulse 2s ease-in-out 1s infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 8px 25px rgba(255, 59, 48, 0.4),
+                            0 0 40px rgba(255, 149, 0, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 10px 30px rgba(255, 59, 48, 0.6),
+                            0 0 60px rgba(255, 149, 0, 0.5);
+            }
         }
 
         .promo-subtitle {
-            font-size: 28px;
-            color: #c0c0c0;
-            font-weight: 300;
-            font-style: italic;
-            margin-bottom: 15px;
+            font-size: 38px;
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 149, 0, 0.6),
+                         0 0 40px rgba(255, 59, 48, 0.3),
+                         0 4px 10px rgba(0, 0, 0, 0.5);
+            animation: textEntrance 0.8s ease-out 0.9s both, subtitleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes subtitleGlow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(255, 149, 0, 0.6),
+                             0 0 40px rgba(255, 59, 48, 0.3),
+                             0 4px 10px rgba(0, 0, 0, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(255, 149, 0, 0.8),
+                             0 0 60px rgba(255, 59, 48, 0.5),
+                             0 4px 10px rgba(0, 0, 0, 0.5);
+            }
         }
 
         .promo-description {
-            font-size: 20px;
-            color: #a1a1a6;
+            font-size: 22px;
+            color: #e1e1e6;
             margin-bottom: 15px;
+            font-weight: 400;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            animation: textEntrance 0.8s ease-out 1.1s both;
         }
 
         .gallery {
@@ -132,14 +388,15 @@
         }
 
         .image-card {
-            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-            transition: all 0.4s ease;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #1a1a1a);
+            border-radius: 24px;
+            padding: 0;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5),
+                        inset 0 1px 0 rgba(255,255,255,0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            border: 1px solid #3a3a3a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             cursor: pointer;
         }
 
@@ -149,39 +406,119 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #c0c0c0, #8e8e93, #6a6a6f);
+            height: 4px;
+            background: linear-gradient(90deg,
+                transparent,
+                #ff3b30,
+                #ff9500,
+                #ffcc00,
+                #ff9500,
+                #ff3b30,
+                transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-card:hover::before {
+            opacity: 1;
+        }
+
+        .image-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,149,0,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .image-card:hover::after {
+            opacity: 1;
         }
 
         .image-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-            border-color: #4a4a4a;
+            transform: translateY(-20px) scale(1.03);
+            box-shadow: 0 30px 80px rgba(255,149,0,0.2),
+                        0 0 0 1px rgba(255,149,0,0.1);
+            border-color: rgba(255,149,0,0.2);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff3b30, #ff9500);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(255,59,48,0.4);
+        }
+
+        .card-image-wrapper {
+            padding: 20px;
+            position: relative;
         }
 
         .promo-image {
             width: 100%;
             height: auto;
-            border-radius: 15px;
-            transition: all 0.4s ease;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            border-radius: 18px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             max-height: 400px;
             object-fit: cover;
         }
 
         .image-card:hover .promo-image {
-            transform: scale(1.05);
-            box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+            transform: scale(1.08) translateY(-5px);
+            box-shadow: 0 20px 50px rgba(255,149,0,0.3);
         }
 
         .image-title {
             text-align: center;
-            margin-top: 20px;
+            padding: 20px;
+            margin: 0;
             font-size: 18px;
-            font-weight: 600;
-            color: #c0c0c0;
+            font-weight: 700;
+            color: #ffffff;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, rgba(26,26,26,0.8), rgba(45,45,45,0.8));
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card-info {
+            padding: 0 20px 20px;
+        }
+
+        .card-features {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            padding: 15px 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature-tag {
+            background: rgba(255,149,0,0.1);
+            border: 1px solid rgba(255,149,0,0.2);
+            color: #ff9500;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .modal {
@@ -284,28 +621,95 @@
         }
 
         .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #3a3a3a, #1a1a1a);
-            color: #c0c0c0;
-            padding: 18px 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            padding: 20px 45px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 18px;
-            transition: all 0.4s ease;
-            margin-top: 20px;
-            border: 2px solid #4a4a4a;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 25px;
+            border: none;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .cta-button:hover {
-            background: linear-gradient(135deg, #4a4a4a, #2a2a2a);
+            background: linear-gradient(135deg, #2feb77, #25d366);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(37, 211, 102, 0.5);
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Trust badges section */
+        .trust-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+            padding: 40px 0;
+        }
+
+        .trust-badge {
+            text-align: center;
+            padding: 25px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .trust-badge:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,149,0,0.2);
+            transform: translateY(-5px);
+        }
+
+        .trust-badge-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .trust-badge-title {
+            font-size: 16px;
+            font-weight: 700;
             color: #ffffff;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 36px rgba(0,0,0,0.5);
-            border-color: #5a5a5a;
+            margin-bottom: 8px;
+        }
+
+        .trust-badge-text {
+            font-size: 13px;
+            color: #a1a1a6;
+            line-height: 1.5;
         }
 
         .image-placeholder {
@@ -338,54 +742,198 @@
         }
 
         @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 18px;
+            }
+
+            .navbar-badge {
+                font-size: 11px;
+                padding: 5px 12px;
+            }
+
             .gallery {
                 grid-template-columns: 1fr;
                 gap: 25px;
             }
-            
+
             .promo-title {
-                font-size: 42px;
+                font-size: 48px;
+                letter-spacing: -2px;
             }
-            
+
+            .promo-subtitle {
+                font-size: 28px;
+            }
+
+            .promo-description {
+                font-size: 18px;
+            }
+
+            .final-cta-text {
+                font-size: 17px !important;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .logo-text {
+                font-size: 32px;
+            }
+
+            .header {
+                padding: 60px 20px 40px;
+                border-radius: 20px;
+            }
+
+            .logo {
+                width: 110px;
+                height: 110px;
+            }
+
             .container {
                 padding: 15px;
             }
-            
+
             .image-card {
+                padding: 0;
+            }
+
+            .card-image-wrapper {
                 padding: 15px;
             }
-            
+
             .modal-nav {
                 font-size: 18px;
                 padding: 12px 16px;
             }
-            
+
             .modal-prev {
                 left: 10px;
             }
-            
+
             .modal-next {
                 right: 10px;
+            }
+
+            .trust-section {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .contact-section {
+                padding: 35px 20px;
+                border-radius: 20px;
+            }
+
+            .cta-button {
+                padding: 16px 35px;
+                font-size: 16px;
             }
         }
 
         .fade-in {
-            animation: fadeIn 1s ease-out;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
-        @keyframes fadeIn {
+        /* Stagger animation delays for gallery items */
+        .gallery .fade-in:nth-child(1) { animation-delay: 0.2s; }
+        .gallery .fade-in:nth-child(2) { animation-delay: 0.3s; }
+        .gallery .fade-in:nth-child(3) { animation-delay: 0.4s; }
+        .gallery .fade-in:nth-child(4) { animation-delay: 0.5s; }
+        .gallery .fade-in:nth-child(5) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(40px);
+                transform: translateY(60px) scale(0.9);
+                filter: blur(5px);
             }
             to {
                 opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Texto final con efecto especial */
+        .final-cta-text {
+            animation: textEntrance 0.8s ease-out 1.3s both, textFloat 3s ease-in-out 2s infinite;
+        }
+
+        @keyframes textFloat {
+            0%, 100% {
                 transform: translateY(0);
             }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Separador decorativo */
+        .section-divider {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 149, 0, 0.3),
+                rgba(255, 59, 48, 0.3),
+                rgba(255, 149, 0, 0.3),
+                transparent);
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 255, 255, 0.8),
+                transparent);
+            animation: dividerShine 3s ease-in-out infinite;
+        }
+
+        @keyframes dividerShine {
+            0% {
+                left: -100%;
+            }
+            50%, 100% {
+                left: 100%;
+            }
+        }
+
+        /* Section title mejorado */
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #ff9500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 40px;
+            text-shadow: 0 0 30px rgba(255, 149, 0, 0.3);
+            animation: fadeInUp 0.8s ease-out forwards;
         }
     </style>
 </head>
 <body>
+    <!-- Navbar superior sticky -->
+    <nav class="top-navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">🍎 Mr. Manzana</div>
+            <div class="navbar-badge">
+                ⚡ Oferta Limitada
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <header class="header fade-in">
             <div class="logo">
@@ -393,51 +941,90 @@
             </div>
             <h1 class="logo-text">Mr. Manzana</h1>
             <p class="tagline">Somos calidad y tu mejor elección</p>
-            
+
+            <div class="promo-badge">✨ Promoción Especial</div>
             <h2 class="promo-title">SUPER PROMO</h2>
-            <p class="promo-subtitle">Amor y amistad</p>
-            <p class="promo-description">Celebra este mes con descuentos especiales</p>
-            <p style="color: #c0c0c0; font-weight: 600; font-size: 18px;">¡No dejes pasar estas ofertas únicas!</p>
+            <p class="promo-subtitle">💝 Amor y Amistad</p>
+            <p class="promo-description">Celebra este mes con descuentos especiales en iPhone</p>
+            <p class="final-cta-text" style="color: #ffffff; font-weight: 700; font-size: 20px; text-shadow: 0 0 20px rgba(255, 149, 0, 0.5);">✨ ¡No dejes pasar estas ofertas únicas! ✨</p>
         </header>
+
+        <div class="section-divider"></div>
+        <h2 class="section-title">🔥 Ofertas Exclusivas 🔥</h2>
 
         <div class="gallery">
             <div class="image-card fade-in" onclick="openModal(0)">
-                <img src="https://lh3.googleusercontent.com/d/18m70Es21-nXf_304YG3aT4mvdPK42-TH" 
-                     alt="Promoción General" 
-                     class="promo-image"
-                     onerror="this.parentElement.innerHTML='<div class=image-placeholder>Vista General<br><small>Imagen no disponible</small></div>'">
+                <span class="card-badge">🔥 HOT</span>
+                <div class="card-image-wrapper">
+                    <img src="https://lh3.googleusercontent.com/d/18m70Es21-nXf_304YG3aT4mvdPK42-TH"
+                         alt="Promoción General"
+                         class="promo-image"
+                         onerror="this.parentElement.innerHTML='<div class=image-placeholder>Vista General<br><small>Imagen no disponible</small></div>'">
+                </div>
+                <div class="card-features">
+                    <span class="feature-tag">⭐ Destacado</span>
+                    <span class="feature-tag">🎁 Oferta</span>
+                </div>
                 <div class="image-title">Vista General</div>
             </div>
 
             <div class="image-card fade-in" onclick="openModal(1)">
-                <img src="https://lh3.googleusercontent.com/d/1g1jBR-YzV9p7AndS9DQEcNF420nnX8TZ" 
-                     alt="iPhone 12 Series" 
-                     class="promo-image"
-                     onerror="this.parentElement.innerHTML='<div class=image-placeholder>iPhone 12 Series<br><small>Imagen no disponible</small></div>'">
+                <span class="card-badge">💎 OFERTA</span>
+                <div class="card-image-wrapper">
+                    <img src="https://lh3.googleusercontent.com/d/1g1jBR-YzV9p7AndS9DQEcNF420nnX8TZ"
+                         alt="iPhone 12 Series"
+                         class="promo-image"
+                         onerror="this.parentElement.innerHTML='<div class=image-placeholder>iPhone 12 Series<br><small>Imagen no disponible</small></div>'">
+                </div>
+                <div class="card-features">
+                    <span class="feature-tag">📱 iPhone 12</span>
+                    <span class="feature-tag">💰 Precio Especial</span>
+                </div>
                 <div class="image-title">iPhone 12 Series</div>
             </div>
 
             <div class="image-card fade-in" onclick="openModal(2)">
-                <img src="https://lh3.googleusercontent.com/d/1Mq3loNQiZ8JFZdq-WpTOTEM5-O_83iHY" 
-                     alt="iPhone 13 Series" 
-                     class="promo-image"
-                     onerror="this.parentElement.innerHTML='<div class=image-placeholder>iPhone 13 Series<br><small>Imagen no disponible</small></div>'">
+                <span class="card-badge">⚡ POPULAR</span>
+                <div class="card-image-wrapper">
+                    <img src="https://lh3.googleusercontent.com/d/1Mq3loNQiZ8JFZdq-WpTOTEM5-O_83iHY"
+                         alt="iPhone 13 Series"
+                         class="promo-image"
+                         onerror="this.parentElement.innerHTML='<div class=image-placeholder>iPhone 13 Series<br><small>Imagen no disponible</small></div>'">
+                </div>
+                <div class="card-features">
+                    <span class="feature-tag">📱 iPhone 13</span>
+                    <span class="feature-tag">✨ Más vendido</span>
+                </div>
                 <div class="image-title">iPhone 13 Series</div>
             </div>
 
             <div class="image-card fade-in" onclick="openModal(3)">
-                <img src="https://lh3.googleusercontent.com/d/12ck-G92LEI7isiuBt8EisrEH-nM9DCZD" 
-                     alt="iPhone 14 Series" 
-                     class="promo-image"
-                     onerror="this.parentElement.innerHTML='<div class=image-placeholder>iPhone 14 Series<br><small>Imagen no disponible</small></div>'">
+                <span class="card-badge">🌟 NUEVO</span>
+                <div class="card-image-wrapper">
+                    <img src="https://lh3.googleusercontent.com/d/12ck-G92LEI7isiuBt8EisrEH-nM9DCZD"
+                         alt="iPhone 14 Series"
+                         class="promo-image"
+                         onerror="this.parentElement.innerHTML='<div class=image-placeholder>iPhone 14 Series<br><small>Imagen no disponible</small></div>'">
+                </div>
+                <div class="card-features">
+                    <span class="feature-tag">📱 iPhone 14</span>
+                    <span class="feature-tag">🚀 Última Gen</span>
+                </div>
                 <div class="image-title">iPhone 14 Series</div>
             </div>
 
             <div class="image-card fade-in" onclick="openModal(4)">
-                <img src="https://lh3.googleusercontent.com/d/1wxM2Kx1b5okVJzqIp2A7SQIru8vFnbCO" 
-                     alt="iPhone 15 & 16 Series" 
-                     class="promo-image"
-                     onerror="this.parentElement.innerHTML='<div class=image-placeholder>iPhone 15 & 16 Series<br><small>Imagen no disponible</small></div>'">
+                <span class="card-badge">🎯 EXCLUSIVO</span>
+                <div class="card-image-wrapper">
+                    <img src="https://lh3.googleusercontent.com/d/1wxM2Kx1b5okVJzqIp2A7SQIru8vFnbCO"
+                         alt="iPhone 15 & 16 Series"
+                         class="promo-image"
+                         onerror="this.parentElement.innerHTML='<div class=image-placeholder>iPhone 15 & 16 Series<br><small>Imagen no disponible</small></div>'">
+                </div>
+                <div class="card-features">
+                    <span class="feature-tag">📱 iPhone 15/16</span>
+                    <span class="feature-tag">💫 Premium</span>
+                </div>
                 <div class="image-title">iPhone 15 & 16 Series</div>
             </div>
         </div>
@@ -451,12 +1038,36 @@
             </div>
         </div>
 
+        <!-- Trust Badges Section -->
+        <div class="trust-section fade-in">
+            <div class="trust-badge">
+                <div class="trust-badge-icon">✅</div>
+                <div class="trust-badge-title">Garantía Verificada</div>
+                <div class="trust-badge-text">Todos nuestros productos son 100% originales</div>
+            </div>
+            <div class="trust-badge">
+                <div class="trust-badge-icon">🚚</div>
+                <div class="trust-badge-title">Entrega Segura</div>
+                <div class="trust-badge-text">Envíos rápidos y seguros a todo el país</div>
+            </div>
+            <div class="trust-badge">
+                <div class="trust-badge-icon">💳</div>
+                <div class="trust-badge-title">Pago Flexible</div>
+                <div class="trust-badge-text">Múltiples opciones de pago disponibles</div>
+            </div>
+            <div class="trust-badge">
+                <div class="trust-badge-icon">🛡️</div>
+                <div class="trust-badge-title">Soporte 24/7</div>
+                <div class="trust-badge-text">Estamos aquí para ayudarte siempre</div>
+            </div>
+        </div>
+
         <div class="contact-section fade-in">
             <h3 class="contact-title">¿Te interesa algún modelo?</h3>
             <p class="contact-info">Contáctanos para más información sobre disponibilidad, métodos de pago y promociones especiales</p>
-            <p class="contact-info"><strong>Somos calidad y tu mejor elección</strong></p>
+            <p class="contact-info"><strong>💎 Somos calidad y tu mejor elección</strong></p>
             <a href="https://wa.me/573175530069?text=Hola!%20Me%20interesan%20las%20promociones%20de%20amor%20y%20amistad%20de%20Mr.%20Manzana" class="cta-button" target="_blank">
-                Contactar por WhatsApp
+                <span>📱 Contactar por WhatsApp</span>
             </a>
         </div>
     </div>
